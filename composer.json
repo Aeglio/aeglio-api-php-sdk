@@ -1,0 +1,32 @@
+{
+    "name": "aeglio/aeglio-api-php-sdk",
+    "description": "PHP SDK for the Aeglio API.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "aeglio",
+        "api",
+        "sdk",
+        "php"
+    ],
+    "require": {
+        "php": "^8.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aeglio\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aeglio\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text"
+    }
+}
