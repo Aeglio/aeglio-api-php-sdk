@@ -39,7 +39,8 @@ $category = $sdk->expenseCategories()->create(new ExpenseCategoryData(
 $expense = $sdk->expenses()->create(new ExpenseData(
     number: 'SDK-SMOKE-'.$suffix,
     amount: 12.34,
-    date: date('Y-m-d'),
+    issuedAt: date('Y-m-d'),
+    dueAt: date('Y-m-d', strtotime('+7 days')),
     categoryId: $category->id,
     notes: 'SDK smoke test',
     billable: false,
@@ -75,6 +76,7 @@ $invoice = $sdk->invoices()->create(new InvoiceData(
     number: 'SDK-INV-'.$suffix,
     issuedAt: date('Y-m-d'),
     dueAt: date('Y-m-d', strtotime('+7 days')),
+    state: 'sent',
     notes: 'SDK invoice smoke test',
     hasTax: false,
     rows: [

@@ -13,12 +13,14 @@ final class UpdateExpenseDataTest extends TestCase
     {
         $dto = new UpdateExpenseData(
             clientId: null,
+            referenceNumber: 'REF-123',
             notes: 'Updated through SDK',
             billable: true,
         );
 
         self::assertSame([
             'client_id' => null,
+            'reference_number' => 'REF-123',
             'notes' => 'Updated through SDK',
             'billable' => true,
         ], $dto->toArray());

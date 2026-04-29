@@ -23,8 +23,10 @@ final class ExpenseTest extends TestCase
                 'user_id' => 4,
                 'invoice_row_id' => 12,
                 'number' => 'EXP-005',
+                'reference_number' => 'REF-EXP-5',
                 'state' => 'paid',
-                'date' => '2026-04-24',
+                'issued_at' => '2026-04-24',
+                'due_at' => '2026-04-30',
                 'notes' => 'Hotel',
                 'billable' => true,
                 'amount' => 120.50,
@@ -53,6 +55,9 @@ final class ExpenseTest extends TestCase
 
         self::assertSame(5, $expense->id);
         self::assertSame('EXP-005', $expense->number);
+        self::assertSame('REF-EXP-5', $expense->referenceNumber);
+        self::assertSame('2026-04-24', $expense->issuedAt);
+        self::assertSame('2026-04-30', $expense->dueAt);
         self::assertTrue($expense->billable);
         self::assertCount(1, $expense->payments);
         self::assertSame('receipt.pdf', $expense->attachment['name']);

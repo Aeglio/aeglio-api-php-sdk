@@ -43,7 +43,8 @@ $category = $aeglio->expenseCategories()->create(new ExpenseCategoryData(
 $expense = $aeglio->expenses()->create(new ExpenseData(
     number: 'EXP-001',
     amount: 120.50,
-    date: '2026-04-21',
+    issuedAt: '2026-04-21',
+    dueAt: '2026-04-28',
     categoryId: $category->id,
     notes: 'Hotel stay',
     billable: true,

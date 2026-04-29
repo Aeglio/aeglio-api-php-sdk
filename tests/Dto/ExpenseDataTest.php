@@ -14,14 +14,16 @@ final class ExpenseDataTest extends TestCase
         $dto = new ExpenseData(
             number: 'EXP-001',
             amount: 120.5,
-            date: '2026-04-24',
+            issuedAt: '2026-04-24',
+            dueAt: '2026-04-30',
             categoryId: 3,
         );
 
         self::assertSame([
             'number' => 'EXP-001',
             'amount' => 120.5,
-            'date' => '2026-04-24',
+            'issued_at' => '2026-04-24',
+            'due_at' => '2026-04-30',
             'category_id' => 3,
         ], $dto->toArray());
     }

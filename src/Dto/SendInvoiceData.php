@@ -11,7 +11,7 @@ final readonly class SendInvoiceData
      */
     public function __construct(
         public array $contactIds,
-        public ?bool $sendCopy = null,
+        public ?bool $teamCopy = null,
     ) {
     }
 
@@ -22,7 +22,7 @@ final readonly class SendInvoiceData
     {
         return array_filter([
             'contact_ids' => $this->contactIds,
-            'send_copy' => $this->sendCopy,
+            'team_copy' => $this->teamCopy,
         ], static fn (mixed $value): bool => $value !== null);
     }
 }

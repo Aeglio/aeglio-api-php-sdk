@@ -10,6 +10,7 @@ final readonly class InvoiceRowData
         public string $type,
         public float $quantity,
         public float $price,
+        public ?int $id = null,
         public ?string $title = null,
         public ?string $description = null,
         public ?int $taxRateId = null,
@@ -22,6 +23,7 @@ final readonly class InvoiceRowData
     public function toArray(): array
     {
         return array_filter([
+            'id' => $this->id,
             'type' => $this->type,
             'title' => $this->title,
             'description' => $this->description,
