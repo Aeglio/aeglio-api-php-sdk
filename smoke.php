@@ -57,6 +57,12 @@ $fetchedExpense = $sdk->expenses()->find($expense->id);
 $client = $sdk->clients()->create(new ClientData(
     name: 'SDK Smoke Client '.$suffix,
     locale: 'en_US',
+    countryCode: 'EE',
+    vatNumber: 'EE'.$suffix,
+    address: 'SDK Street 1',
+    city: 'Tallinn',
+    postalCode: '10115',
+    stateRegion: 'Harju maakond',
 ));
 
 $taxRate = $sdk->taxRates()->create(new TaxRateData(
@@ -105,6 +111,8 @@ echo json_encode([
     'expense_state' => $fetchedExpense->state,
     'payments_total' => $fetchedExpense->paymentsTotal,
     'client_id' => $client->id,
+    'client_country_code' => $client->countryCode,
+    'client_city' => $client->city,
     'tax_rate_id' => $taxRate->id,
     'project_id' => $project->id,
     'invoice_id' => $invoice->id,

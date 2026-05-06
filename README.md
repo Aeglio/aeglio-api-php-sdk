@@ -68,6 +68,12 @@ use Aeglio\Dto\InvoiceRowData;
 $client = $aeglio->clients()->create(new ClientData(
     name: 'Acme Ltd',
     locale: 'en_US',
+    countryCode: 'EE',
+    vatNumber: 'EE123456789',
+    address: 'Main Street 1',
+    city: 'Tallinn',
+    postalCode: '10115',
+    stateRegion: 'Harju maakond',
 ));
 
 $invoice = $aeglio->invoices()->create(new InvoiceData(
@@ -103,6 +109,12 @@ use Aeglio\Dto\TaxRateData;
 $client = $aeglio->clients()->create(new ClientData(
     name: 'Globex',
     locale: 'en_US',
+    countryCode: 'FI',
+    vatNumber: 'FI12345678',
+    address: 'Updated Street 5',
+    city: 'Helsinki',
+    postalCode: '00100',
+    stateRegion: 'Uusimaa',
 ));
 
 $project = $aeglio->projects()->create(new ProjectData(
