@@ -17,6 +17,10 @@ final class UpdateClientDataTest extends TestCase
             city: 'Helsinki',
             postalCode: '00100',
             stateRegion: 'Uusimaa',
+            paymentRecipientName: 'Globex Payments',
+            paymentRecipientIban: 'FI2112345600000785',
+            matchAliases: ['Globex', 'Globex Oy'],
+            isSupplier: true,
         );
 
         self::assertSame([
@@ -25,6 +29,10 @@ final class UpdateClientDataTest extends TestCase
             'city' => 'Helsinki',
             'postal_code' => '00100',
             'state_region' => 'Uusimaa',
+            'payment_recipient_name' => 'Globex Payments',
+            'payment_recipient_iban' => 'FI2112345600000785',
+            'match_aliases' => ['Globex', 'Globex Oy'],
+            'is_supplier' => true,
         ], $dto->toArray());
     }
 }

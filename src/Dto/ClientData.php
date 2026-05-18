@@ -17,6 +17,11 @@ final readonly class ClientData
         public ?string $postalCode = null,
         public ?string $stateRegion = null,
         public ?string $notes = null,
+        public ?string $paymentRecipientName = null,
+        public ?string $paymentRecipientIban = null,
+        public ?array $matchAliases = null,
+        public ?bool $isClient = null,
+        public ?bool $isSupplier = null,
     ) {
     }
 
@@ -36,6 +41,11 @@ final readonly class ClientData
             'postal_code' => $this->postalCode,
             'state_region' => $this->stateRegion,
             'notes' => $this->notes,
+            'payment_recipient_name' => $this->paymentRecipientName,
+            'payment_recipient_iban' => $this->paymentRecipientIban,
+            'match_aliases' => $this->matchAliases,
+            'is_client' => $this->isClient,
+            'is_supplier' => $this->isSupplier,
         ], static fn (mixed $value): bool => $value !== null);
     }
 }

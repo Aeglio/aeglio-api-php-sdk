@@ -19,6 +19,11 @@ final readonly class UpdateClientData
         public string|null|Optional $postalCode = new Optional(),
         public string|null|Optional $stateRegion = new Optional(),
         public string|null|Optional $notes = new Optional(),
+        public string|null|Optional $paymentRecipientName = new Optional(),
+        public string|null|Optional $paymentRecipientIban = new Optional(),
+        public array|null|Optional $matchAliases = new Optional(),
+        public bool|null|Optional $isClient = new Optional(),
+        public bool|null|Optional $isSupplier = new Optional(),
     ) {
     }
 
@@ -40,6 +45,11 @@ final readonly class UpdateClientData
             'postal_code' => $this->postalCode,
             'state_region' => $this->stateRegion,
             'notes' => $this->notes,
+            'payment_recipient_name' => $this->paymentRecipientName,
+            'payment_recipient_iban' => $this->paymentRecipientIban,
+            'match_aliases' => $this->matchAliases,
+            'is_client' => $this->isClient,
+            'is_supplier' => $this->isSupplier,
         ] as $key => $value) {
             if (!$value instanceof Optional) {
                 $payload[$key] = $value;

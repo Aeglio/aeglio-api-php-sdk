@@ -7,7 +7,7 @@ namespace Aeglio\Entity;
 use Aeglio\Aeglio;
 use Aeglio\Dto\UpdateClientData;
 
-final readonly class Client
+final readonly class Supplier
 {
     /**
      * @param list<string> $matchAliases
@@ -68,11 +68,11 @@ final readonly class Client
 
     public function update(UpdateClientData $data): self
     {
-        return $this->client->clients()->update($this->id, $data);
+        return $this->client->suppliers()->update($this->id, $data);
     }
 
     public function delete(): void
     {
-        $this->client->clients()->delete($this->id);
+        $this->client->suppliers()->delete($this->id);
     }
 }

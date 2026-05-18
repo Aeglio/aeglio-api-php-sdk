@@ -17,6 +17,7 @@ final class ExpenseDataTest extends TestCase
             issuedAt: '2026-04-24',
             dueAt: '2026-04-30',
             categoryId: 3,
+            supplierId: 9,
         );
 
         self::assertSame([
@@ -25,6 +26,7 @@ final class ExpenseDataTest extends TestCase
             'issued_at' => '2026-04-24',
             'due_at' => '2026-04-30',
             'category_id' => 3,
+            'supplier_id' => 9,
         ], $dto->toArray());
     }
 }

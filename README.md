@@ -46,6 +46,7 @@ $expense = $aeglio->expenses()->create(new ExpenseData(
     issuedAt: '2026-04-21',
     dueAt: '2026-04-28',
     categoryId: $category->id,
+    supplierId: 42,
     notes: 'Hotel stay',
     billable: true,
 ));
@@ -133,6 +134,7 @@ $taxRate = $aeglio->taxRates()->create(new TaxRateData(
 ## Available Sections
 
 - `clients()`
+- `suppliers()`
 - `projects()`
 - `taxRates()`
 - `expenseCategories()`
@@ -143,11 +145,19 @@ $taxRate = $aeglio->taxRates()->create(new TaxRateData(
 
 ### Clients
 
-- `clients()->list(int $perPage = 50, int $page = 1)`
+- `clients()->list(int $perPage = 50, int $page = 1, ?string $search = null)`
 - `clients()->find(int $id)`
 - `clients()->create(ClientData $data)`
 - `clients()->update(int $id, UpdateClientData $data)`
 - `clients()->delete(int $id)`
+
+### Suppliers
+
+- `suppliers()->list(int $perPage = 50, int $page = 1, ?string $search = null)`
+- `suppliers()->find(int $id)`
+- `suppliers()->create(ClientData $data)`
+- `suppliers()->update(int $id, UpdateClientData $data)`
+- `suppliers()->delete(int $id)`
 
 ### Projects
 

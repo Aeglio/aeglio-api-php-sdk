@@ -10,6 +10,7 @@ use Aeglio\Resource\ExpenseCategories;
 use Aeglio\Resource\Expenses;
 use Aeglio\Resource\Invoices;
 use Aeglio\Resource\Projects;
+use Aeglio\Resource\Suppliers;
 use Aeglio\Resource\TaxRates;
 
 final class Aeglio
@@ -49,6 +50,11 @@ final class Aeglio
     public function expenses(): Expenses
     {
         return new Expenses($this, $this->httpClient);
+    }
+
+    public function suppliers(): Suppliers
+    {
+        return new Suppliers($this, $this->httpClient);
     }
 
     public function expenseCategories(): ExpenseCategories

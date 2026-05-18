@@ -58,9 +58,33 @@ final class ExpenseTest extends TestCase
         self::assertSame('REF-EXP-5', $expense->referenceNumber);
         self::assertSame('2026-04-24', $expense->issuedAt);
         self::assertSame('2026-04-30', $expense->dueAt);
+        self::assertSame(2, $expense->clientId);
+        self::assertNull($expense->supplierId);
         self::assertTrue($expense->billable);
         self::assertCount(1, $expense->payments);
         self::assertSame('receipt.pdf', $expense->attachment['name']);
         self::assertSame(99, $expense->payments[0]->id);
+    }
+
+    public function test_from_array_maps_supplier_id(): void
+    {
+        $expense = Expense::fromArray(
+            new Aeglio(token: 'test-token'),
+            [
+                'id' => 5,
+                'client_id' => 3,
+                'supplier_id' => 8,
+                'number' => 'EXP-1',
+                'state' => 'draft',
+                'billable' => false,
+                'amount' => 10.0,
+                'tax' => 2.2,
+                'payments_total' => 0.0,
+                'total_to_pay' => 12.2,
+                'payments' => [],
+            ],
+        );
+
+        self::assertSame(8, $expense->supplierId);
     }
 }
