@@ -12,6 +12,10 @@ final readonly class SendInvoiceResult
     private function __construct(
         public string $message,
         public array $sentTo,
+        public ?string $deliveryId,
+        public ?string $locale,
+        public ?string $subject,
+        public ?string $deliveryMode,
     ) {
     }
 
@@ -23,6 +27,12 @@ final readonly class SendInvoiceResult
         return new self(
             message: (string) ($data['message'] ?? 'Invoice sent.'),
             sentTo: array_values(is_array($data['sent_to'] ?? null) ? $data['sent_to'] : []),
+            deliveryId: isset($data['delivery']['id']) ? (string) $data['delivery']['id'] : null,
+            locale: isset($data['delivery']['locale']) ? (string) $data['delivery']['locale'] : null,
+            subject: isset($data['delivery']['subject']) ? (string) $data['delivery']['subject'] : null,
+            deliveryMode: isset($data['delivery']['delivery_mode'])
+                ? (string) $data['delivery']['delivery_mode']
+                : null,
         );
     }
 }

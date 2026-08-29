@@ -13,6 +13,12 @@ final class SendInvoiceResultTest extends TestCase
     {
         $result = SendInvoiceResult::fromArray([
             'message' => 'Invoice sent.',
+            'delivery' => [
+                'id' => '5034f81f-d0ab-49ae-bc54-a42ef889cb41',
+                'locale' => 'fi_FI',
+                'subject' => 'Lasku INV-001',
+                'delivery_mode' => 'both',
+            ],
             'sent_to' => [[
                 'type' => 'client',
                 'id' => 134,
@@ -22,6 +28,10 @@ final class SendInvoiceResultTest extends TestCase
         ]);
 
         self::assertSame('Invoice sent.', $result->message);
+        self::assertSame('5034f81f-d0ab-49ae-bc54-a42ef889cb41', $result->deliveryId);
+        self::assertSame('fi_FI', $result->locale);
+        self::assertSame('Lasku INV-001', $result->subject);
+        self::assertSame('both', $result->deliveryMode);
         self::assertSame('client', $result->sentTo[0]['type']);
         self::assertSame(134, $result->sentTo[0]['id']);
     }

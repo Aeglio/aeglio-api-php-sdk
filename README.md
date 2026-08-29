@@ -105,6 +105,10 @@ $pdf = $invoice->downloadPdf();
 $invoice->send(new SendInvoiceData(
     recipients: [InvoiceRecipientData::client($client->id)],
     teamCopy: false,
+    locale: 'fi_FI',
+    subject: 'Lasku INV-001',
+    body: 'Mukautettu viesti.',
+    deliveryMode: 'both', // pdf, link, or both
 ));
 ```
 

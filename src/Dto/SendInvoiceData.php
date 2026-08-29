@@ -12,6 +12,10 @@ final readonly class SendInvoiceData
     public function __construct(
         public array $recipients,
         public ?bool $teamCopy = null,
+        public ?string $locale = null,
+        public ?string $subject = null,
+        public ?string $body = null,
+        public ?string $deliveryMode = null,
     ) {
     }
 
@@ -26,6 +30,10 @@ final readonly class SendInvoiceData
                 $this->recipients,
             ),
             'team_copy' => $this->teamCopy,
+            'locale' => $this->locale,
+            'subject' => $this->subject,
+            'body' => $this->body,
+            'delivery_mode' => $this->deliveryMode,
         ], static fn (mixed $value): bool => $value !== null);
     }
 }
