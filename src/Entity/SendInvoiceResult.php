@@ -7,7 +7,7 @@ namespace Aeglio\Entity;
 final readonly class SendInvoiceResult
 {
     /**
-     * @param list<array{id:int, name:string, email:string}> $sentTo
+     * @param list<array{type:'client'|'contact', id:int, name:string, email:string}> $sentTo
      */
     private function __construct(
         public string $message,

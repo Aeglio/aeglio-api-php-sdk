@@ -64,11 +64,14 @@ $payment = $expense->addPayment(new ExpensePaymentData(
 use Aeglio\Dto\ClientData;
 use Aeglio\Dto\InvoiceData;
 use Aeglio\Dto\InvoicePaymentData;
+use Aeglio\Dto\InvoiceRecipientData;
 use Aeglio\Dto\InvoiceRowData;
+use Aeglio\Dto\SendInvoiceData;
 
 $client = $aeglio->clients()->create(new ClientData(
     name: 'Acme Ltd',
     locale: 'en_US',
+    email: 'billing@acme.test',
     countryCode: 'EE',
     vatNumber: 'EE123456789',
     address: 'Main Street 1',
@@ -98,6 +101,11 @@ $payment = $invoice->addPayment(new InvoicePaymentData(
 ));
 
 $pdf = $invoice->downloadPdf();
+
+$invoice->send(new SendInvoiceData(
+    recipients: [InvoiceRecipientData::client($client->id)],
+    teamCopy: false,
+));
 ```
 
 ## Other Resources

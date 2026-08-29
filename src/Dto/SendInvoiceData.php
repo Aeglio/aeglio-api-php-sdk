@@ -7,10 +7,10 @@ namespace Aeglio\Dto;
 final readonly class SendInvoiceData
 {
     /**
-     * @param list<int> $contactIds
+     * @param list<InvoiceRecipientData> $recipients
      */
     public function __construct(
-        public array $contactIds,
+        public array $recipients,
         public ?bool $teamCopy = null,
     ) {
     }
@@ -21,7 +21,10 @@ final readonly class SendInvoiceData
     public function toArray(): array
     {
         return array_filter([
-            'contact_ids' => $this->contactIds,
+            'recipients' => array_map(
+                static fn (InvoiceRecipientData $recipient): array => $recipient->toArray(),
+                $this->recipients,
+            ),
             'team_copy' => $this->teamCopy,
         ], static fn (mixed $value): bool => $value !== null);
     }

@@ -11,6 +11,7 @@ final readonly class UpdateClientData
     public function __construct(
         public string|Optional $name = new Optional(),
         public string|Optional $locale = new Optional(),
+        public string|null|Optional $email = new Optional(),
         public string|null|Optional $regCode = new Optional(),
         public string|null|Optional $countryCode = new Optional(),
         public string|null|Optional $vatNumber = new Optional(),
@@ -37,6 +38,7 @@ final readonly class UpdateClientData
         foreach ([
             'name' => $this->name,
             'locale' => $this->locale,
+            'email' => $this->email,
             'reg_code' => $this->regCode,
             'country_code' => $this->countryCode,
             'vat_number' => $this->vatNumber,
