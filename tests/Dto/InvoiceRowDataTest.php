@@ -17,12 +17,14 @@ final class InvoiceRowDataTest extends TestCase
             quantity: 2,
             price: 75,
             title: 'Consulting',
+            description: '<p><strong>Discovery</strong> workshop</p>',
         );
 
         self::assertSame([
             'id' => 55,
             'type' => 'regular',
             'title' => 'Consulting',
+            'description' => '<p><strong>Discovery</strong> workshop</p>',
             'quantity' => 2.0,
             'price' => 75.0,
         ], $dto->toArray());

@@ -18,6 +18,7 @@ final class SendInvoiceResultTest extends TestCase
                 'locale' => 'fi_FI',
                 'subject' => 'Lasku INV-001',
                 'delivery_mode' => 'both',
+                'reply_to_email' => 'billing@example.test',
             ],
             'sent_to' => [[
                 'type' => 'client',
@@ -32,6 +33,7 @@ final class SendInvoiceResultTest extends TestCase
         self::assertSame('fi_FI', $result->locale);
         self::assertSame('Lasku INV-001', $result->subject);
         self::assertSame('both', $result->deliveryMode);
+        self::assertSame('billing@example.test', $result->replyToEmail);
         self::assertSame('client', $result->sentTo[0]['type']);
         self::assertSame(134, $result->sentTo[0]['id']);
     }

@@ -20,8 +20,9 @@ final class SendInvoiceDataTest extends TestCase
             teamCopy: true,
             locale: 'fi_FI',
             subject: 'Lasku INV-001',
-            body: 'Mukautettu viesti.',
+            body: '<p><strong>Mukautettu viesti.</strong></p>',
             deliveryMode: 'both',
+            replyToEmail: 'billing@example.test',
         );
 
         self::assertSame([
@@ -32,8 +33,9 @@ final class SendInvoiceDataTest extends TestCase
             'team_copy' => true,
             'locale' => 'fi_FI',
             'subject' => 'Lasku INV-001',
-            'body' => 'Mukautettu viesti.',
+            'body' => '<p><strong>Mukautettu viesti.</strong></p>',
             'delivery_mode' => 'both',
+            'reply_to_email' => 'billing@example.test',
         ], $dto->toArray());
     }
 }

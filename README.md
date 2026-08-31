@@ -89,14 +89,15 @@ $invoice = $aeglio->invoices()->create(new InvoiceData(
         new InvoiceRowData(
             type: 'regular',
             title: 'Development work',
-            quantity: 2,
-            price: 75.00,
+            description: '<p><strong>Backend development</strong> and testing.</p>',
+            quantity: 3,
+            price: 49.99,
         ),
     ],
 ));
 
 $payment = $invoice->addPayment(new InvoicePaymentData(
-    sum: 150.00,
+    sum: 149.97,
     paidAt: '2026-04-25',
 ));
 
@@ -107,8 +108,10 @@ $invoice->send(new SendInvoiceData(
     teamCopy: false,
     locale: 'fi_FI',
     subject: 'Lasku INV-001',
-    body: 'Mukautettu viesti.',
+    // Safe HTML supports paragraphs, line breaks, bold, italic, underline, and lists.
+    body: '<p><strong>Mukautettu viesti.</strong></p>',
     deliveryMode: 'both', // pdf, link, or both
+    replyToEmail: 'billing@example.com', // defaults to the team's billing email
 ));
 ```
 

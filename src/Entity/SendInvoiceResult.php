@@ -16,6 +16,7 @@ final readonly class SendInvoiceResult
         public ?string $locale,
         public ?string $subject,
         public ?string $deliveryMode,
+        public ?string $replyToEmail,
     ) {
     }
 
@@ -32,6 +33,9 @@ final readonly class SendInvoiceResult
             subject: isset($data['delivery']['subject']) ? (string) $data['delivery']['subject'] : null,
             deliveryMode: isset($data['delivery']['delivery_mode'])
                 ? (string) $data['delivery']['delivery_mode']
+                : null,
+            replyToEmail: isset($data['delivery']['reply_to_email'])
+                ? (string) $data['delivery']['reply_to_email']
                 : null,
         );
     }

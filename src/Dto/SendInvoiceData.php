@@ -8,6 +8,7 @@ final readonly class SendInvoiceData
 {
     /**
      * @param list<InvoiceRecipientData> $recipients
+     * @param ?string $body Plain text or safe HTML using paragraphs, line breaks, bold, italic, underline, or lists
      */
     public function __construct(
         public array $recipients,
@@ -16,6 +17,7 @@ final readonly class SendInvoiceData
         public ?string $subject = null,
         public ?string $body = null,
         public ?string $deliveryMode = null,
+        public ?string $replyToEmail = null,
     ) {
     }
 
@@ -34,6 +36,7 @@ final readonly class SendInvoiceData
             'subject' => $this->subject,
             'body' => $this->body,
             'delivery_mode' => $this->deliveryMode,
+            'reply_to_email' => $this->replyToEmail,
         ], static fn (mixed $value): bool => $value !== null);
     }
 }
