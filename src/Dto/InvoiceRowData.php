@@ -6,6 +6,9 @@ namespace Aeglio\Dto;
 
 final readonly class InvoiceRowData
 {
+    /**
+     * @param string|null $description Safe HTML supporting p, div, br, strong, b, em, i, u, ul, ol, and li tags.
+     */
     public function __construct(
         public string $type,
         public float $quantity,

@@ -14,6 +14,7 @@ final class ClientDataTest extends TestCase
         $dto = new ClientData(
             name: 'Acme Ltd',
             locale: 'en_US',
+            email: 'billing@acme.test',
             regCode: '12345678',
             countryCode: 'EE',
             vatNumber: 'EE123456789',
@@ -32,6 +33,7 @@ final class ClientDataTest extends TestCase
         self::assertSame([
             'name' => 'Acme Ltd',
             'locale' => 'en_US',
+            'email' => 'billing@acme.test',
             'reg_code' => '12345678',
             'country_code' => 'EE',
             'vat_number' => 'EE123456789',

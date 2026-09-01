@@ -64,11 +64,14 @@ $payment = $expense->addPayment(new ExpensePaymentData(
 use Aeglio\Dto\ClientData;
 use Aeglio\Dto\InvoiceData;
 use Aeglio\Dto\InvoicePaymentData;
+use Aeglio\Dto\InvoiceRecipientData;
 use Aeglio\Dto\InvoiceRowData;
+use Aeglio\Dto\SendInvoiceData;
 
 $client = $aeglio->clients()->create(new ClientData(
     name: 'Acme Ltd',
     locale: 'en_US',
+    email: 'billing@acme.test',
     countryCode: 'EE',
     vatNumber: 'EE123456789',
     address: 'Main Street 1',
@@ -86,18 +89,30 @@ $invoice = $aeglio->invoices()->create(new InvoiceData(
         new InvoiceRowData(
             type: 'regular',
             title: 'Development work',
-            quantity: 2,
-            price: 75.00,
+            description: '<p><strong>Backend development</strong> and testing.</p>',
+            quantity: 3,
+            price: 49.99,
         ),
     ],
 ));
 
 $payment = $invoice->addPayment(new InvoicePaymentData(
-    sum: 150.00,
+    sum: 149.97,
     paidAt: '2026-04-25',
 ));
 
 $pdf = $invoice->downloadPdf();
+
+$invoice->send(new SendInvoiceData(
+    recipients: [InvoiceRecipientData::client($client->id)],
+    teamCopy: false,
+    locale: 'fi_FI',
+    subject: 'Lasku INV-001',
+    // Safe HTML supports paragraphs, line breaks, bold, italic, underline, and lists.
+    body: '<p><strong>Mukautettu viesti.</strong></p>',
+    deliveryMode: 'both', // pdf, link, or both
+    replyToEmail: 'billing@example.com', // defaults to the team's billing email
+));
 ```
 
 ## Other Resources

@@ -9,6 +9,7 @@ final readonly class ClientData
     public function __construct(
         public string $name,
         public string $locale,
+        public ?string $email = null,
         public ?string $regCode = null,
         public ?string $countryCode = null,
         public ?string $vatNumber = null,
@@ -33,6 +34,7 @@ final readonly class ClientData
         return array_filter([
             'name' => $this->name,
             'locale' => $this->locale,
+            'email' => $this->email,
             'reg_code' => $this->regCode,
             'country_code' => $this->countryCode,
             'vat_number' => $this->vatNumber,

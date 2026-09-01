@@ -12,6 +12,7 @@ final class UpdateClientDataTest extends TestCase
     public function test_to_array_includes_only_provided_extended_client_fields(): void
     {
         $dto = new UpdateClientData(
+            email: 'accounts@globex.test',
             countryCode: 'FI',
             vatNumber: 'FI12345678',
             city: 'Helsinki',
@@ -24,6 +25,7 @@ final class UpdateClientDataTest extends TestCase
         );
 
         self::assertSame([
+            'email' => 'accounts@globex.test',
             'country_code' => 'FI',
             'vat_number' => 'FI12345678',
             'city' => 'Helsinki',

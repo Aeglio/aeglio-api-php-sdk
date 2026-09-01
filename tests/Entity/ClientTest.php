@@ -17,6 +17,7 @@ final class ClientTest extends TestCase
             [
                 'id' => 7,
                 'name' => 'Acme Ltd',
+                'email' => 'billing@acme.test',
                 'reg_code' => '12345678',
                 'country_code' => 'EE',
                 'vat_number' => 'EE123456789',
@@ -37,6 +38,7 @@ final class ClientTest extends TestCase
         );
 
         self::assertSame(7, $client->id);
+        self::assertSame('billing@acme.test', $client->email);
         self::assertSame('EE', $client->countryCode);
         self::assertSame('EE123456789', $client->vatNumber);
         self::assertSame('Tallinn', $client->city);

@@ -17,6 +17,7 @@ final class SupplierTest extends TestCase
             [
                 'id' => 12,
                 'name' => 'Vendor Ltd',
+                'email' => 'billing@vendor.test',
                 'locale' => 'en_US',
                 'payment_recipient_name' => 'Vendor Ltd',
                 'payment_recipient_iban' => 'EE471000001020145685',
@@ -27,6 +28,7 @@ final class SupplierTest extends TestCase
         );
 
         self::assertSame(12, $supplier->id);
+        self::assertSame('billing@vendor.test', $supplier->email);
         self::assertSame('Vendor Ltd', $supplier->paymentRecipientName);
         self::assertSame('EE471000001020145685', $supplier->paymentRecipientIban);
         self::assertSame(['Vendor', 'Vendor OU'], $supplier->matchAliases);

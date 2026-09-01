@@ -6,6 +6,9 @@ namespace Aeglio\Entity;
 
 final readonly class InvoiceRow
 {
+    /**
+     * @param string|null $description Sanitized row-description HTML.
+     */
     private function __construct(
         public int $id,
         public string $type,
