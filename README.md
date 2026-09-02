@@ -155,6 +155,7 @@ $taxRate = $aeglio->taxRates()->create(new TaxRateData(
 - `expenseCategories()`
 - `expenses()`
 - `invoices()`
+- `estimates()`
 
 ## Public API
 
@@ -243,3 +244,10 @@ Entity helpers:
 - `$invoice->payments(...)`
 - `$invoice->send(...)`
 - `$invoice->downloadPdf()`
+
+### Estimates
+
+Estimate endpoints are read-only. Every revision has its own stable `id`; revisions share the commercial `number` and are ordered by `revisionNumber`.
+
+- `estimates()->list(int $perPage = 50, int $page = 1)`
+- `estimates()->find(int $id)`
