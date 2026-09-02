@@ -8,6 +8,7 @@ use Aeglio\Http\HttpClient;
 use Aeglio\Resource\Clients;
 use Aeglio\Resource\ExpenseCategories;
 use Aeglio\Resource\Expenses;
+use Aeglio\Resource\Estimates;
 use Aeglio\Resource\Invoices;
 use Aeglio\Resource\Projects;
 use Aeglio\Resource\Suppliers;
@@ -65,6 +66,11 @@ final class Aeglio
     public function invoices(): Invoices
     {
         return new Invoices($this, $this->httpClient);
+    }
+
+    public function estimates(): Estimates
+    {
+        return new Estimates($this, $this->httpClient);
     }
 
     public function projects(): Projects
