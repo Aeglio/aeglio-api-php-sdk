@@ -10,6 +10,25 @@ use PHPUnit\Framework\TestCase;
 
 final class InvoiceTest extends TestCase
 {
+    public function test_client_only_update_omits_reference_so_server_can_assign_it(): void
+    {
+        $data = new \Aeglio\Dto\UpdateInvoiceData(clientId: 42);
+        self::assertSame(['client_id' => 42], $data->toArray());
+    }
+
+    public function test_generated_references_remain_strings(): void
+    {
+        foreach (['10003', 'RF671000'] as $reference) {
+            $invoice = Invoice::fromArray(new Aeglio(token: 'test-token'), [
+                'id' => 1, 'number' => 'INV-1', 'reference_number' => $reference,
+                'client_id' => 1, 'state' => 'draft', 'issued_at' => '2026-10-06',
+                'due_at' => '2026-10-20', 'has_tax' => false, 'subtotal' => 0,
+                'tax' => 0, 'total' => 0, 'payments_total' => 0, 'total_to_pay' => 0,
+            ]);
+            self::assertSame($reference, $invoice->referenceNumber);
+        }
+    }
+
     public function test_from_array_maps_rows_and_payments(): void
     {
         $invoice = Invoice::fromArray(
