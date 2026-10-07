@@ -226,6 +226,17 @@ Entity helpers:
 - `invoices()->list(?array $state = null, int $perPage = 50, int $page = 1)`
 - `invoices()->find(int $id)`
 - `invoices()->create(InvoiceData $data)`
+- Automatic payment references are an opt-in team setting. Omit `referenceNumber`
+  when creating an invoice to let Aeglio assign it (Estonian numeric or ISO 11649
+  `RF`, according to the issuer's settings). Read `$invoice->referenceNumber`
+  from the returned invoice. An explicit nonblank value remains manual. Generated
+  references cannot be directly changed or cleared; attempts return a validation error.
+  Teams can assign references per invoice (default) or reuse one per client.
+  Updating `clientId` on a client-based invoice automatically replaces its reference
+  with the destination client's reference, using the invoice's stored format.
+  Omit `referenceNumber` on this update and read the new value from the response.
+  Manual and per-invoice references remain unchanged when changing the client.
+  Updating an existing invoice never automatically fills a blank reference.
 - `invoices()->update(int $id, UpdateInvoiceData $data)`
 - `invoices()->delete(int $id)`
 - `invoices()->addPayment(int $invoiceId, InvoicePaymentData $data)`
