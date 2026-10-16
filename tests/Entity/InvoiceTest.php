@@ -10,6 +10,32 @@ use PHPUnit\Framework\TestCase;
 
 final class InvoiceTest extends TestCase
 {
+    public function test_generated_one_time_charge_is_an_ordinary_invoice_row(): void
+    {
+        $invoice = Invoice::fromArray(new Aeglio(token: 'test-token'), [
+            'id' => 3, 'client_id' => 10, 'number' => 'INV-003', 'state' => 'draft',
+            'issued_at' => '2026-10-10', 'due_at' => '2026-10-24', 'has_tax' => false,
+            'subtotal' => 135, 'tax' => 0, 'total' => 135, 'payments_total' => 0, 'total_to_pay' => 135,
+            'rows' => [
+                ['id' => 1, 'type' => 'regular', 'title' => 'Monthly service', 'quantity' => 1,
+                    'price' => 100, 'subtotal' => 100, 'tax' => 0, 'total' => 100],
+                ['id' => 2, 'type' => 'regular', 'title' => 'Extra consultation', 'quantity' => 1,
+                    'price' => 35, 'subtotal' => 35, 'tax' => 0, 'total' => 35],
+            ],
+        ]);
+        self::assertSame(135.0, $invoice->total);
+        self::assertCount(2, $invoice->rows);
+        self::assertSame('Extra consultation', $invoice->rows[1]->title);
+        self::assertSame(35.0, $invoice->rows[1]->total);
+    }
+
+    public function test_pending_charge_validation_errors_retain_the_field_key(): void
+    {
+        $exception = new \Aeglio\Exception\ValidationException('Resolve pending charges.', 422,
+            ['errors' => ['charge' => ['Resolve pending charges.']]]);
+        self::assertSame(['charge' => ['Resolve pending charges.']], $exception->errors());
+    }
+
     public function test_client_only_update_omits_reference_so_server_can_assign_it(): void
     {
         $data = new \Aeglio\Dto\UpdateInvoiceData(clientId: 42);

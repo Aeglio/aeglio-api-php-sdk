@@ -191,6 +191,10 @@ $taxRate = $aeglio->taxRates()->create(new TaxRateData(
 - `taxRates()->update(int $id, UpdateTaxRateData $data)`
 - `taxRates()->delete(int $id)`
 
+Changing or deleting a tax rate used by pending recurring one-time charges returns
+HTTP 422. Resolve those charges in Aeglio first; `ValidationException::errors()`
+contains the `charge` key.
+
 ### Expense Categories
 
 - `expenseCategories()->list(int $perPage = 50, int $page = 1)`
@@ -222,6 +226,12 @@ Entity helpers:
 - `$expense->downloadAttachment()`
 
 ### Invoices
+
+One-time charges added to recurring schedules appear as ordinary `InvoiceRow`
+entries on the generated invoice. The invoice totals include them. Pending
+charges are managed in Aeglio; there are no public charge endpoints or new row
+fields. Changing a recurring template's client, currency or tax mode while it has
+pending charges returns HTTP 422 with `errors.charge`.
 
 - `invoices()->list(?array $state = null, int $perPage = 50, int $page = 1)`
 - `invoices()->find(int $id)`
