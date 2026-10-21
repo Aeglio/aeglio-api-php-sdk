@@ -9,6 +9,7 @@ use Aeglio\Support\Optional;
 final readonly class UpdateProjectData
 {
     /**
+     * @param string|null|Optional $code Optional; server trims/uppercases 2–12 ASCII letters/numbers, letter first. Blank clears it.
      * @param array<string, mixed>|null|Optional $data
      */
     public function __construct(
