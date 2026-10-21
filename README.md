@@ -177,6 +177,18 @@ $taxRate = $aeglio->taxRates()->create(new TaxRateData(
 
 ### Projects
 
+Code is optional. New or edited Codes are trimmed and uppercased by the API and
+must contain 2–12 ASCII letters/numbers, starting with a letter. Codes reserved by
+another project return 422. Existing legacy Codes remain readable. Changing Code
+updates every task prefix while preserving task numbers and IDs. Omit Code to keep
+it unchanged; send null or an empty string to clear it and use the automatic task
+prefix. SDK field types remain nullable strings; validation belongs to the API.
+
+```php
+$aeglio->projects()->update($project->id, new \Aeglio\Dto\UpdateProjectData(code: 'WEB2'));
+$aeglio->projects()->update($project->id, new \Aeglio\Dto\UpdateProjectData(code: null));
+```
+
 - `projects()->list(?bool $archived = null, int $perPage = 50, int $page = 1)`
 - `projects()->find(int $id)`
 - `projects()->create(ProjectData $data)`
