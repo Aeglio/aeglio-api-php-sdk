@@ -6,6 +6,7 @@ namespace Aeglio\Entity;
 
 final readonly class Estimate
 {
+    /** @param list<EstimateRow> $rows */
     private function __construct(
         public int $id,
         public ?int $dealId,
@@ -28,6 +29,11 @@ final readonly class Estimate
         public ?string $terms,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public bool $hasTax,
+        public float $subtotal,
+        public float $tax,
+        public float $total,
+        public array $rows,
     ) {
     }
 
@@ -56,6 +62,11 @@ final readonly class Estimate
             terms: $data['terms'] ?? null,
             createdAt: $data['created_at'] ?? null,
             updatedAt: $data['updated_at'] ?? null,
+            hasTax: (bool) ($data['has_tax'] ?? false),
+            subtotal: (float) ($data['subtotal'] ?? 0),
+            tax: (float) ($data['tax'] ?? 0),
+            total: (float) ($data['total'] ?? 0),
+            rows: array_map(EstimateRow::fromArray(...), $data['rows'] ?? []),
         );
     }
 }

@@ -17,6 +17,7 @@ final readonly class HttpClient
     public function __construct(
         public string $baseUrl,
         public string $token,
+        private ?\Closure $transport = null,
     ) {
     }
 
@@ -56,7 +57,7 @@ final readonly class HttpClient
         $payload = [];
 
         foreach ($fields as $key => $value) {
-            $payload[$key] = is_bool($value) ? ($value ? 'true' : 'false') : $value;
+            $payload[$key] = is_bool($value) ? ($value ? '1' : '0') : $value;
         }
 
         foreach ($files as $key => $file) {
@@ -104,6 +105,14 @@ final readonly class HttpClient
         ?array $json = null,
         ?array $multipart = null,
     ): array {
+        if ($this->transport !== null) {
+            $response = ($this->transport)($method, $path, $query, $json, $multipart);
+            if ($response['status'] >= 400) {
+                $this->throwHttpException($response['status'], $response['body'], $response['headers'] ?? []);
+            }
+            return $response;
+        }
+        $responseHeaders = [];
         $curl = curl_init();
 
         $url = $this->buildUrl($path, $query);
@@ -121,6 +130,15 @@ final readonly class HttpClient
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $requestHeaders,
             CURLOPT_TIMEOUT => 30,
+            CURLOPT_HEADERFUNCTION => static function ($handle, string $line) use (&$responseHeaders): int {
+                if (str_starts_with($line, 'HTTP/')) {
+                    $responseHeaders = [];
+                } elseif (str_contains($line, ':')) {
+                    [$name, $value] = explode(':', $line, 2);
+                    $responseHeaders[strtolower(trim($name))] = trim($value);
+                }
+                return strlen($line);
+            },
         ];
 
         if ($json !== null) {
@@ -147,12 +165,13 @@ final readonly class HttpClient
         curl_close($curl);
 
         if ($status >= 400) {
-            $this->throwHttpException($status, $body);
+            $this->throwHttpException($status, $body, $responseHeaders);
         }
 
         return [
             'status' => $status,
             'body' => $body,
+            'headers' => $responseHeaders,
         ];
     }
 
@@ -169,7 +188,10 @@ final readonly class HttpClient
 
         $decoded = json_decode($response['body'], true);
 
-        return is_array($decoded) ? $decoded : [];
+        if (! is_array($decoded) || json_last_error() !== JSON_ERROR_NONE) {
+            throw new ApiException('Aeglio API returned invalid JSON.', $response['status'], [], $response['headers'] ?? []);
+        }
+        return $decoded;
     }
 
     /**
@@ -194,13 +216,14 @@ final readonly class HttpClient
                 $value = implode(',', $value);
             }
 
+            $value = is_bool($value) ? (int) $value : $value;
             $parts[] = urlencode((string) $key).'='.urlencode((string) $value);
         }
 
         return $parts === [] ? $url : $url.'?'.implode('&', $parts);
     }
 
-    private function throwHttpException(int $status, string $body): never
+    private function throwHttpException(int $status, string $body, array $headers = []): never
     {
         $decoded = json_decode($body, true);
         $response = is_array($decoded) ? $decoded : [];
@@ -209,12 +232,14 @@ final readonly class HttpClient
             : 'Aeglio API request failed.';
 
         throw match (true) {
-            $status === 401 => new AuthenticationException($message, $status, $response),
-            $status === 403 => new AuthorizationException($message, $status, $response),
-            $status === 404 => new NotFoundException($message, $status, $response),
-            $status === 422 => new ValidationException($message, $status, $response),
-            $status >= 500 => new ServerException($message, $status, $response),
-            default => new ApiException($message, $status, $response),
+            $status === 401 => new AuthenticationException($message, $status, $response, $headers),
+            $status === 403 => new AuthorizationException($message, $status, $response, $headers),
+            $status === 404 => new NotFoundException($message, $status, $response, $headers),
+            $status === 409 => new \Aeglio\Exception\ConflictException($message, $status, $response, $headers),
+            $status === 429 => new \Aeglio\Exception\RateLimitException($message, $status, $response, $headers),
+            $status === 422 => new ValidationException($message, $status, $response, $headers),
+            $status >= 500 => new ServerException($message, $status, $response, $headers),
+            default => new ApiException($message, $status, $response, $headers),
         };
     }
 }

@@ -24,6 +24,7 @@ final readonly class UpdateExpenseData
         public bool|null|Optional $billable = new Optional(),
         public bool|Optional $removeAttachment = new Optional(),
         public string|\SplFileInfo|null|Optional $attachment = new Optional(),
+        public string|Optional $currency = new Optional(),
     ) {
     }
 
@@ -35,6 +36,7 @@ final readonly class UpdateExpenseData
         $payload = [];
 
         foreach ([
+            'currency' => $this->currency,
             'number' => $this->number,
             'amount' => $this->amount,
             'issued_at' => $this->issuedAt,

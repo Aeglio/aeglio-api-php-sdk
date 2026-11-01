@@ -18,6 +18,7 @@ final readonly class InvoicePayment
         public string $paidAt,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public ?string $currency = null,
     ) {
     }
 
@@ -27,6 +28,7 @@ final readonly class InvoicePayment
     public static function fromArray(Aeglio $client, array $data): self
     {
         return new self(
+            currency: $data['currency'] ?? null,
             client: $client,
             id: (int) $data['id'],
             invoiceId: isset($data['invoice_id']) ? (int) $data['invoice_id'] : null,

@@ -23,6 +23,7 @@ final readonly class ClientData
         public ?array $matchAliases = null,
         public ?bool $isClient = null,
         public ?bool $isSupplier = null,
+        public ?string $currency = null,
     ) {
     }
 
@@ -32,6 +33,7 @@ final readonly class ClientData
     public function toArray(): array
     {
         return array_filter([
+            'currency' => $this->currency,
             'name' => $this->name,
             'locale' => $this->locale,
             'email' => $this->email,

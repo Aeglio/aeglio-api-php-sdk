@@ -40,6 +40,7 @@ final readonly class Expense
         public ?array $attachment,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public ?string $currency = null,
     ) {
     }
 
@@ -49,6 +50,7 @@ final readonly class Expense
     public static function fromArray(Aeglio $client, array $data): self
     {
         return new self(
+            currency: $data['currency'] ?? null,
             client: $client,
             id: (int) $data['id'],
             clientId: isset($data['client_id']) ? (int) $data['client_id'] : null,

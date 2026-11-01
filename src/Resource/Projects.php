@@ -14,11 +14,12 @@ final class Projects extends BaseResource
     /**
      * @return PaginatedResult<Project>
      */
-    public function list(?bool $archived = null, int $perPage = 50, int $page = 1): PaginatedResult
+    public function list(?bool $archived = null, int $perPage = 50, int $page = 1, ?string $currency = null): PaginatedResult
     {
         return $this->paginated(
             path: 'projects',
             query: [
+                'currency' => $currency,
                 'archived' => $archived,
                 'per_page' => $perPage,
                 'page' => $page,

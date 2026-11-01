@@ -19,11 +19,12 @@ final class Invoices extends BaseResource
     /**
      * @return PaginatedResult<Invoice>
      */
-    public function list(?array $state = null, int $perPage = 50, int $page = 1): PaginatedResult
+    public function list(?array $state = null, int $perPage = 50, int $page = 1, ?string $currency = null): PaginatedResult
     {
         return $this->paginated(
             path: 'invoices',
             query: [
+                'currency' => $currency,
                 'state' => $state,
                 'per_page' => $perPage,
                 'page' => $page,

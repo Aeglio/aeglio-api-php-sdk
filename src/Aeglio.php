@@ -82,4 +82,49 @@ final class Aeglio
     {
         return new TaxRates($this, $this->httpClient);
     }
+    public function tasks(): \Aeglio\Resource\Tasks
+    {
+        return new \Aeglio\Resource\Tasks($this, $this->httpClient);
+    }
+
+    public function milestones(): \Aeglio\Resource\Milestones
+    {
+        return new \Aeglio\Resource\Milestones($this, $this->httpClient);
+    }
+
+    public function deals(): \Aeglio\Resource\Deals
+    {
+        return new \Aeglio\Resource\Deals($this, $this->httpClient);
+    }
+
+    public function recurringInvoices(): \Aeglio\Resource\RecurringInvoices
+    {
+        return new \Aeglio\Resource\RecurringInvoices($this, $this->httpClient);
+    }
+
+    public function approvals(): \Aeglio\Resource\Approvals
+    {
+        return new \Aeglio\Resource\Approvals($this, $this->httpClient);
+    }
+
+    public function documents(): \Aeglio\Resource\Documents
+    {
+        return new \Aeglio\Resource\Documents($this, $this->httpClient);
+    }
+
+    public function reimbursements(): \Aeglio\Resource\Reimbursements
+    {
+        return new \Aeglio\Resource\Reimbursements($this, $this->httpClient);
+    }
+
+    public function dealPipelines(): \Aeglio\Resource\DealPipelines
+    {
+        return new \Aeglio\Resource\DealPipelines($this, $this->httpClient);
+    }
+
+    public function webhooks(): \Aeglio\Resource\Webhooks
+    {
+        return new \Aeglio\Resource\Webhooks($this, $this->httpClient);
+    }
+
 }

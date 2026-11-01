@@ -12,6 +12,7 @@ final readonly class UpdateInvoicePaymentData
         public float|Optional $sum = new Optional(),
         public string|Optional $paidAt = new Optional(),
         public string|null|Optional $notes = new Optional(),
+        public string|Optional $currency = new Optional(),
     ) {
     }
 
@@ -23,6 +24,7 @@ final readonly class UpdateInvoicePaymentData
         $payload = [];
 
         foreach ([
+            'currency' => $this->currency,
             'sum' => $this->sum,
             'paid_at' => $this->paidAt,
             'notes' => $this->notes,

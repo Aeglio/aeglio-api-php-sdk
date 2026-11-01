@@ -33,6 +33,7 @@ final readonly class Client
         public ?bool $isSupplier,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public ?string $currency = null,
     ) {
     }
 
@@ -42,6 +43,7 @@ final readonly class Client
     public static function fromArray(Aeglio $client, array $data): self
     {
         return new self(
+            currency: $data['currency'] ?? null,
             client: $client,
             id: (int) $data['id'],
             name: (string) $data['name'],

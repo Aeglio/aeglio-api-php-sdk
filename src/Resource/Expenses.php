@@ -18,11 +18,12 @@ final class Expenses extends BaseResource
     /**
      * @return PaginatedResult<Expense>
      */
-    public function list(?array $state = null, int $perPage = 50, int $page = 1): PaginatedResult
+    public function list(?array $state = null, int $perPage = 50, int $page = 1, ?string $currency = null): PaginatedResult
     {
         return $this->paginated(
             path: 'expenses',
             query: [
+                'currency' => $currency,
                 'state' => $state,
                 'per_page' => $perPage,
                 'page' => $page,
@@ -127,7 +128,7 @@ final class Expenses extends BaseResource
             return $this->http->multipart(
                 method: $method,
                 path: $path,
-                fields: $payload,
+                fields: ['payload' => json_encode($payload, JSON_THROW_ON_ERROR)],
                 files: ['attachment' => $attachment],
             );
         }

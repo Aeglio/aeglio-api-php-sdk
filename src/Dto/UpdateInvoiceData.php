@@ -21,6 +21,7 @@ final readonly class UpdateInvoiceData
         public string|null|Optional $notes = new Optional(),
         public bool|null|Optional $hasTax = new Optional(),
         public array|Optional $rows = new Optional(),
+        public string|Optional $currency = new Optional(),
     ) {
     }
 
@@ -32,6 +33,7 @@ final readonly class UpdateInvoiceData
         $payload = [];
 
         $map = [
+            'currency' => $this->currency,
             'client_id' => $this->clientId,
             'number' => $this->number,
             'issued_at' => $this->issuedAt,

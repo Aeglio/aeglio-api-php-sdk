@@ -1,0 +1,752 @@
+[
+  {
+    "method": "GET",
+    "path": "approvals",
+    "sdk": "Approvals.list"
+  },
+  {
+    "method": "GET",
+    "path": "approvals/{approval}",
+    "sdk": "Approvals.find"
+  },
+  {
+    "method": "POST",
+    "path": "approvals/{approval}/approve",
+    "sdk": "Approvals.approve"
+  },
+  {
+    "method": "POST",
+    "path": "approvals/{approval}/reject",
+    "sdk": "Approvals.reject"
+  },
+  {
+    "method": "GET",
+    "path": "clients",
+    "sdk": "Clients.list"
+  },
+  {
+    "method": "POST",
+    "path": "clients",
+    "sdk": "Clients.create"
+  },
+  {
+    "method": "GET",
+    "path": "clients/{client}",
+    "sdk": "Clients.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "clients/{client}",
+    "sdk": "Clients.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "clients/{client}",
+    "sdk": "Clients.delete"
+  },
+  {
+    "method": "GET",
+    "path": "deal-clients/{client}/contacts",
+    "sdk": "Deals.contacts"
+  },
+  {
+    "method": "GET",
+    "path": "deal-owners",
+    "sdk": "Deals.owners"
+  },
+  {
+    "method": "GET",
+    "path": "deal-pipelines",
+    "sdk": "DealPipelines.list"
+  },
+  {
+    "method": "GET",
+    "path": "deal-pipelines/{dealPipeline}",
+    "sdk": "DealPipelines.find"
+  },
+  {
+    "method": "POST",
+    "path": "deals",
+    "sdk": "Deals.create"
+  },
+  {
+    "method": "GET",
+    "path": "deals",
+    "sdk": "Deals.list"
+  },
+  {
+    "method": "PATCH",
+    "path": "deals/{deal}",
+    "sdk": "Deals.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "deals/{deal}",
+    "sdk": "Deals.delete"
+  },
+  {
+    "method": "GET",
+    "path": "deals/{deal}",
+    "sdk": "Deals.find"
+  },
+  {
+    "method": "POST",
+    "path": "deals/{deal}/outcome",
+    "sdk": "Deals.outcome"
+  },
+  {
+    "method": "GET",
+    "path": "documents",
+    "sdk": "Documents.list"
+  },
+  {
+    "method": "GET",
+    "path": "documents/{document}",
+    "sdk": "Documents.find"
+  },
+  {
+    "method": "POST",
+    "path": "estimates",
+    "sdk": "Estimates.create"
+  },
+  {
+    "method": "GET",
+    "path": "estimates",
+    "sdk": "Estimates.list"
+  },
+  {
+    "method": "PATCH",
+    "path": "estimates/{estimate}",
+    "sdk": "Estimates.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "estimates/{estimate}",
+    "sdk": "Estimates.delete"
+  },
+  {
+    "method": "GET",
+    "path": "estimates/{estimate}",
+    "sdk": "Estimates.find"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/acceptance",
+    "sdk": "Estimates.recordAcceptance"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/cancel",
+    "sdk": "Estimates.cancel"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/convert/invoice",
+    "sdk": "Estimates.convertToInvoice"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/convert/project",
+    "sdk": "Estimates.convertToProject"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/duplicate",
+    "sdk": "Estimates.duplicate"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/mark-as-sent",
+    "sdk": "Estimates.markAsSent"
+  },
+  {
+    "method": "GET",
+    "path": "estimates/{estimate}/recipients",
+    "sdk": "Estimates.recipients"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/revision",
+    "sdk": "Estimates.revision"
+  },
+  {
+    "method": "POST",
+    "path": "estimates/{estimate}/send",
+    "sdk": "Estimates.send"
+  },
+  {
+    "method": "GET",
+    "path": "expenses",
+    "sdk": "Expenses.list"
+  },
+  {
+    "method": "POST",
+    "path": "expenses",
+    "sdk": "Expenses.create"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/categories",
+    "sdk": "ExpenseCategories.list"
+  },
+  {
+    "method": "POST",
+    "path": "expenses/categories",
+    "sdk": "ExpenseCategories.create"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/categories/{expense_category}",
+    "sdk": "ExpenseCategories.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "expenses/categories/{expense_category}",
+    "sdk": "ExpenseCategories.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "expenses/categories/{expense_category}",
+    "sdk": "ExpenseCategories.delete"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/{expense}",
+    "sdk": "Expenses.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "expenses/{expense}",
+    "sdk": "Expenses.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "expenses/{expense}",
+    "sdk": "Expenses.delete"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/{expense}/attachment",
+    "sdk": "Expenses.downloadAttachment"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/{expense}/payments",
+    "sdk": "Expenses.listPayments"
+  },
+  {
+    "method": "POST",
+    "path": "expenses/{expense}/payments",
+    "sdk": "Expenses.addPayment"
+  },
+  {
+    "method": "GET",
+    "path": "expenses/{expense}/payments/{payment}",
+    "sdk": "Expenses.findPayment"
+  },
+  {
+    "method": "PATCH",
+    "path": "expenses/{expense}/payments/{payment}",
+    "sdk": "Expenses.updatePayment"
+  },
+  {
+    "method": "DELETE",
+    "path": "expenses/{expense}/payments/{payment}",
+    "sdk": "Expenses.deletePayment"
+  },
+  {
+    "method": "GET",
+    "path": "invoices",
+    "sdk": "Invoices.list"
+  },
+  {
+    "method": "POST",
+    "path": "invoices",
+    "sdk": "Invoices.create"
+  },
+  {
+    "method": "GET",
+    "path": "invoices/{invoice}",
+    "sdk": "Invoices.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "invoices/{invoice}",
+    "sdk": "Invoices.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "invoices/{invoice}",
+    "sdk": "Invoices.delete"
+  },
+  {
+    "method": "GET",
+    "path": "invoices/{invoice}/payments",
+    "sdk": "Invoices.listPayments"
+  },
+  {
+    "method": "POST",
+    "path": "invoices/{invoice}/payments",
+    "sdk": "Invoices.addPayment"
+  },
+  {
+    "method": "GET",
+    "path": "invoices/{invoice}/payments/{payment}",
+    "sdk": "Invoices.findPayment"
+  },
+  {
+    "method": "PATCH",
+    "path": "invoices/{invoice}/payments/{payment}",
+    "sdk": "Invoices.updatePayment"
+  },
+  {
+    "method": "DELETE",
+    "path": "invoices/{invoice}/payments/{payment}",
+    "sdk": "Invoices.deletePayment"
+  },
+  {
+    "method": "GET",
+    "path": "invoices/{invoice}/pdf",
+    "sdk": "Invoices.downloadPdf"
+  },
+  {
+    "method": "POST",
+    "path": "invoices/{invoice}/send",
+    "sdk": "Invoices.send"
+  },
+  {
+    "method": "GET",
+    "path": "milestones",
+    "sdk": "Milestones.list"
+  },
+  {
+    "method": "POST",
+    "path": "milestones",
+    "sdk": "Milestones.create"
+  },
+  {
+    "method": "GET",
+    "path": "milestones/{milestone}",
+    "sdk": "Milestones.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "milestones/{milestone}",
+    "sdk": "Milestones.update"
+  },
+  {
+    "method": "GET",
+    "path": "milestones/{milestone}/tasks",
+    "sdk": "Milestones.tasks"
+  },
+  {
+    "method": "PUT",
+    "path": "milestones/{milestone}/tasks",
+    "sdk": "Milestones.setTasks"
+  },
+  {
+    "method": "POST",
+    "path": "milestones/{milestone}/transition",
+    "sdk": "Milestones.transition"
+  },
+  {
+    "method": "GET",
+    "path": "projects",
+    "sdk": "Projects.list"
+  },
+  {
+    "method": "POST",
+    "path": "projects",
+    "sdk": "Projects.create"
+  },
+  {
+    "method": "GET",
+    "path": "projects/{project}",
+    "sdk": "Projects.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "projects/{project}",
+    "sdk": "Projects.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "projects/{project}",
+    "sdk": "Projects.delete"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices",
+    "sdk": "RecurringInvoices.list"
+  },
+  {
+    "method": "POST",
+    "path": "recurring-invoices",
+    "sdk": "RecurringInvoices.create"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}",
+    "sdk": "RecurringInvoices.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "recurring-invoices/{schedule}",
+    "sdk": "RecurringInvoices.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "recurring-invoices/{schedule}",
+    "sdk": "RecurringInvoices.delete"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}/charges",
+    "sdk": "RecurringInvoices.charges"
+  },
+  {
+    "method": "POST",
+    "path": "recurring-invoices/{schedule}/charges",
+    "sdk": "RecurringInvoices.createCharge"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}/charges/{charge}",
+    "sdk": "RecurringInvoices.charge"
+  },
+  {
+    "method": "PATCH",
+    "path": "recurring-invoices/{schedule}/charges/{charge}",
+    "sdk": "RecurringInvoices.updateCharge"
+  },
+  {
+    "method": "POST",
+    "path": "recurring-invoices/{schedule}/charges/{charge}/cancel",
+    "sdk": "RecurringInvoices.cancelCharge"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}/invoices",
+    "sdk": "RecurringInvoices.invoices"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}/preview",
+    "sdk": "RecurringInvoices.preview"
+  },
+  {
+    "method": "GET",
+    "path": "recurring-invoices/{schedule}/recipients",
+    "sdk": "RecurringInvoices.recipients"
+  },
+  {
+    "method": "GET",
+    "path": "reimbursements",
+    "sdk": "Reimbursements.list"
+  },
+  {
+    "method": "GET",
+    "path": "reimbursements/{reimbursement}",
+    "sdk": "Reimbursements.find"
+  },
+  {
+    "method": "GET",
+    "path": "suppliers",
+    "sdk": "Suppliers.list"
+  },
+  {
+    "method": "POST",
+    "path": "suppliers",
+    "sdk": "Suppliers.create"
+  },
+  {
+    "method": "GET",
+    "path": "suppliers/{supplier}",
+    "sdk": "Suppliers.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "suppliers/{supplier}",
+    "sdk": "Suppliers.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "suppliers/{supplier}",
+    "sdk": "Suppliers.delete"
+  },
+  {
+    "method": "GET",
+    "path": "task-labels",
+    "sdk": "Tasks.labels"
+  },
+  {
+    "method": "GET",
+    "path": "task-projects",
+    "sdk": "Tasks.projects"
+  },
+  {
+    "method": "GET",
+    "path": "task-projects/{project}/assignees",
+    "sdk": "Tasks.assignees"
+  },
+  {
+    "method": "GET",
+    "path": "task-projects/{project}/categories",
+    "sdk": "Tasks.categories"
+  },
+  {
+    "method": "GET",
+    "path": "task-statuses",
+    "sdk": "Tasks.statuses"
+  },
+  {
+    "method": "GET",
+    "path": "task-types",
+    "sdk": "Tasks.types"
+  },
+  {
+    "method": "GET",
+    "path": "tasks",
+    "sdk": "Tasks.list"
+  },
+  {
+    "method": "POST",
+    "path": "tasks",
+    "sdk": "Tasks.create"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}",
+    "sdk": "Tasks.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "tasks/{task}",
+    "sdk": "Tasks.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}",
+    "sdk": "Tasks.delete"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/activity",
+    "sdk": "Tasks.activity"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/archive",
+    "sdk": "Tasks.archive"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/attachments",
+    "sdk": "Tasks.attachments"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/attachments",
+    "sdk": "Tasks.uploadAttachment"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/attachments/{attachment}",
+    "sdk": "Tasks.downloadAttachment"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/attachments/{attachment}",
+    "sdk": "Tasks.deleteAttachment"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/checklist-groups",
+    "sdk": "Tasks.checklistGroups"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/checklist-groups",
+    "sdk": "Tasks.createChecklistGroup"
+  },
+  {
+    "method": "PATCH",
+    "path": "tasks/{task}/checklist-groups/{group}",
+    "sdk": "Tasks.updateChecklistGroup"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/checklist-groups/{group}",
+    "sdk": "Tasks.deleteChecklistGroup"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/checklist-items",
+    "sdk": "Tasks.checklistItems"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/checklist-items",
+    "sdk": "Tasks.createChecklistItem"
+  },
+  {
+    "method": "PATCH",
+    "path": "tasks/{task}/checklist-items/{entry}",
+    "sdk": "Tasks.updateChecklistItem"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/checklist-items/{entry}",
+    "sdk": "Tasks.deleteChecklistItem"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/checklist-items/{entry}/convert",
+    "sdk": "Tasks.convertChecklistItem"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/checklist-items/{entry}/order",
+    "sdk": "Tasks.orderChecklistItem"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/children",
+    "sdk": "Tasks.children"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/comments",
+    "sdk": "Tasks.comments"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/comments",
+    "sdk": "Tasks.createComment"
+  },
+  {
+    "method": "PATCH",
+    "path": "tasks/{task}/comments/{comment}",
+    "sdk": "Tasks.updateComment"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/comments/{comment}",
+    "sdk": "Tasks.deleteComment"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/dependencies",
+    "sdk": "Tasks.dependencies"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/dependencies",
+    "sdk": "Tasks.addDependency"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/dependencies/{related}",
+    "sdk": "Tasks.removeDependency"
+  },
+  {
+    "method": "PUT",
+    "path": "tasks/{task}/labels",
+    "sdk": "Tasks.setLabels"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/order",
+    "sdk": "Tasks.order"
+  },
+  {
+    "method": "PUT",
+    "path": "tasks/{task}/parent",
+    "sdk": "Tasks.setParent"
+  },
+  {
+    "method": "GET",
+    "path": "tasks/{task}/relations",
+    "sdk": "Tasks.relations"
+  },
+  {
+    "method": "POST",
+    "path": "tasks/{task}/relations",
+    "sdk": "Tasks.addRelation"
+  },
+  {
+    "method": "DELETE",
+    "path": "tasks/{task}/relations/{related}",
+    "sdk": "Tasks.removeRelation"
+  },
+  {
+    "method": "GET",
+    "path": "tax-rates",
+    "sdk": "TaxRates.list"
+  },
+  {
+    "method": "POST",
+    "path": "tax-rates",
+    "sdk": "TaxRates.create"
+  },
+  {
+    "method": "GET",
+    "path": "tax-rates/{tax_rate}",
+    "sdk": "TaxRates.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "tax-rates/{tax_rate}",
+    "sdk": "TaxRates.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "tax-rates/{tax_rate}",
+    "sdk": "TaxRates.delete"
+  },
+  {
+    "method": "GET",
+    "path": "webhooks",
+    "sdk": "Webhooks.list"
+  },
+  {
+    "method": "POST",
+    "path": "webhooks",
+    "sdk": "Webhooks.create"
+  },
+  {
+    "method": "GET",
+    "path": "webhooks/{webhook}",
+    "sdk": "Webhooks.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "webhooks/{webhook}",
+    "sdk": "Webhooks.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "webhooks/{webhook}",
+    "sdk": "Webhooks.delete"
+  },
+  {
+    "method": "GET",
+    "path": "webhooks/{webhook}/deliveries",
+    "sdk": "Webhooks.deliveries"
+  },
+  {
+    "method": "POST",
+    "path": "webhooks/{webhook}/pause",
+    "sdk": "Webhooks.pause"
+  },
+  {
+    "method": "POST",
+    "path": "webhooks/{webhook}/resume",
+    "sdk": "Webhooks.resume"
+  },
+  {
+    "method": "POST",
+    "path": "webhooks/{webhook}/rotate-secret",
+    "sdk": "Webhooks.rotateSecret"
+  }
+]

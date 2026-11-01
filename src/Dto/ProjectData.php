@@ -24,6 +24,7 @@ final readonly class ProjectData
         public ?int $budgetThreshold = null,
         public ?bool $budgetThresholdNotify = null,
         public ?array $data = null,
+        public ?string $currency = null,
     ) {
     }
 
@@ -33,6 +34,7 @@ final readonly class ProjectData
     public function toArray(): array
     {
         return array_filter([
+            'currency' => $this->currency,
             'client_id' => $this->clientId,
             'name' => $this->name,
             'type' => $this->type,
