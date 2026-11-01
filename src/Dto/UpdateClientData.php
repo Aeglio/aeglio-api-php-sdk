@@ -25,6 +25,7 @@ final readonly class UpdateClientData
         public array|null|Optional $matchAliases = new Optional(),
         public bool|null|Optional $isClient = new Optional(),
         public bool|null|Optional $isSupplier = new Optional(),
+        public string|Optional $currency = new Optional(),
     ) {
     }
 
@@ -36,6 +37,7 @@ final readonly class UpdateClientData
         $payload = [];
 
         foreach ([
+            'currency' => $this->currency,
             'name' => $this->name,
             'locale' => $this->locale,
             'email' => $this->email,

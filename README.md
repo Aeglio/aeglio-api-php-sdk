@@ -292,3 +292,84 @@ Estimate endpoints are read-only. Every revision has its own stable `id`; revisi
 
 - `estimates()->list(int $perPage = 50, int $page = 1)`
 - `estimates()->find(int $id)`
+
+
+## Tasks, assignees and milestones
+
+Task IDs are stable numeric IDs within the token's team. Human references can change. Assignees, statuses, labels, comments, checklists, attachments and milestones use opaque UUIDs. Discover eligible people for the chosen project; this API does not administer users.
+
+```php
+use Aeglio\Dto\TaskData;
+use Aeglio\Dto\TaskFilter;
+use Aeglio\Dto\UpdateTaskData;
+
+$api = \Aeglio\Aeglio::make(token: $token);
+$projects = $api->tasks()->projects();
+$people = $api->tasks()->assignees($projectId);
+$statuses = $api->tasks()->statuses();
+
+$task = $api->tasks()->create(new TaskData(
+    projectId: $projectId,
+    title: 'Review the proposal',
+    operationId: $operationUuid, // Generate once; retain for retries of this creation.
+    assigneeId: $personUuid,     // From assignees($projectId).
+));
+$task = $api->tasks()->update($task->id, new UpdateTaskData(
+    version: $task->version,
+    dueDate: '2027-01-15',
+));
+$task = $api->tasks()->update($task->id, new UpdateTaskData(
+    version: $task->version,
+    assigneeId: null, // Explicitly unassign; omitted properties remain unchanged.
+));
+$mine = $api->tasks()->list(filter: new TaskFilter(assigneeId: $personUuid));
+```
+
+Use `setLabels`, `setParent`, `order`, `addDependency`/`removeDependency` and `addRelation`/`removeRelation` for task relationships. `archive(..., archived: false)` restores a task. Set `statusId` to a status from `statuses()` to complete/reopen; handle any domain completion warnings before resubmitting acknowledgements. Task comments, activity, children, checklist groups/items and attachments have paginated reads and explicit mutation methods. `uploadAttachment()` sends a file; `downloadAttachment()` returns bytes. `deleteAttachment()` returns false while storage cleanup is pending. Checklist conversion and relative ordering preserve domain version checks.
+
+`milestones()` supports create/update, linked tasks/progress, and `transition()` to active, achieved or cancelled. There is no milestone delete operation.
+
+## Commercial workflows
+
+`deals()` supports CRUD, owners/client contacts, and outcomes. `dealPipelines()` provides read-only pipelines and stages. `estimates()` now includes rows/totals and create/update/delete, duplicate, revision, cancel, send, mark-as-sent, staff acceptance and invoice/project conversion. Editable-state and team permissions still apply. Estimate row updates replace the supplied row collection; omitting rows preserves them. Use `EstimateRowData` objects for rows.
+
+`recurringInvoices()` supports schedules, typed invoice templates, preview, generated history, recipients and one-time charges. Use `InvoiceData` for a new template and `UpdateInvoiceData` when changing it. Preview returns `state` and `items`; each item contains variable `values`, substituted `texts` and unknown placeholders. There is no generate-now endpoint. Charges inherit the template's client/currency and require version checks for updates/cancellation.
+
+```php
+use Aeglio\Dto\InvoiceData;
+use Aeglio\Dto\InvoiceRowData;
+use Aeglio\Dto\RecurringInvoiceData;
+
+$schedule = $api->recurringInvoices()->create(new RecurringInvoiceData(
+    firstIssueAt: '2027-01-01',
+    operationId: $operationUuid,
+    template: new InvoiceData(
+        clientId: $clientId,
+        number: 'Monthly service',
+        issuedAt: '2027-01-01',
+        dueAt: '2027-01-15',
+        currency: 'EUR',
+        rows: [new InvoiceRowData(type: 'regular', title: 'Monthly service', quantity: 1, price: 100)],
+    ),
+    frequency: 1,
+    frequencyUnit: 'months',
+    sendAutomatically: false,
+));
+$preview = $api->recurringInvoices()->preview($schedule->id);
+```
+
+`approvals()`, `documents()`, `reimbursements()` and `webhooks()` cover the previously missing API families. Webhook creation and secret rotation return `WebhookSecret` with the subscription and one-time signing secret; store the secret securely. Existing numeric document/approval relationship IDs are legacy references, not task-assignee UUIDs or necessarily another endpoint's public ID.
+
+## Paging, errors and retries
+
+The checked [operation inventory](contracts/api-v1.json) covers every supported public operation. `PaginatedResult` iterates the current page only; explicitly request the next page using `currentPage`, `lastPage` and `perPage`. Lookup and resource pagination envelopes are both supported.
+
+New task and milestone edits use versions. A stale version or mismatched creation operation ID raises `ConflictException` (HTTP 409); reload and reconcile. Recurring-charge conflicts retain HTTP 422 validation details. `RateLimitException` (429) exposes `headers['retry-after']` when supplied. All API exceptions expose `statusCode`, `responseBody` and normalized response headers. Transport failures and malformed successful JSON also throw rather than returning an empty result.
+
+The SDK performs no automatic retries. In particular, never blindly repeat email sends, approval decisions, secret rotation or ambiguous non-idempotent writes. Creation, duplication, revision and conversion operations that accept an operation UUID can be retried with the same UUID and identical input. Commercial receipts are scoped by team, caller and operation.
+
+Update DTOs distinguish omitted values (`Optional`) from explicit null. Expense uploads send a JSON `payload` multipart field beside the file, preserving nulls and booleans; this requires the matching updated server. Current financial entities use `currency`; `Project::feeCurrency` is retained only for compatibility with old responses.
+
+Task webhooks use the existing signed version-1 envelope, public record IDs, versions and changed field names. Subscribe to task, comment, checklist, attachment and milestone events as needed; fetch current authorized state after delivery. Recurring schedules and charges have no new webhook events in this release; generated invoices retain their invoice events.
+
+Task recurrence, templates, bulk operations, follow/reactions, user administration, time tracking and MCP implementation are intentionally outside this expansion.

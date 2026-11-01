@@ -15,6 +15,7 @@ class ApiException extends RuntimeException
         string $message,
         public readonly int $statusCode,
         public readonly array $responseBody = [],
+        public readonly array $headers = [],
     ) {
         parent::__construct($message, $statusCode);
     }

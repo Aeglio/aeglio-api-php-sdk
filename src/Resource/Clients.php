@@ -14,11 +14,12 @@ final class Clients extends BaseResource
     /**
      * @return PaginatedResult<Client>
      */
-    public function list(int $perPage = 50, int $page = 1, ?string $search = null): PaginatedResult
+    public function list(int $perPage = 50, int $page = 1, ?string $search = null, ?string $currency = null): PaginatedResult
     {
         return $this->paginated(
             path: 'clients',
             query: [
+                'currency' => $currency,
                 'per_page' => $perPage,
                 'page' => $page,
                 'search' => $search,

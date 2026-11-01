@@ -10,6 +10,7 @@ final readonly class ExpensePaymentData
         public float $sum,
         public string $paidAt,
         public ?string $notes = null,
+        public ?string $currency = null,
     ) {
     }
 
@@ -19,6 +20,7 @@ final readonly class ExpensePaymentData
     public function toArray(): array
     {
         return array_filter([
+            'currency' => $this->currency,
             'sum' => $this->sum,
             'paid_at' => $this->paidAt,
             'notes' => $this->notes,

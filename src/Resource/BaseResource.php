@@ -30,7 +30,7 @@ abstract class BaseResource
             is_array($response['data'] ?? null) ? $response['data'] : [],
         );
 
-        $meta = is_array($response['meta'] ?? null) ? $response['meta'] : [];
+        $meta = is_array($response['meta'] ?? null) ? $response['meta'] : $response;
 
         return new PaginatedResult(
             items: $items,

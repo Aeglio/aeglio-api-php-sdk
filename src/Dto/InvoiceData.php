@@ -19,6 +19,7 @@ final readonly class InvoiceData
         public ?string $notes = null,
         public ?bool $hasTax = null,
         public array $rows = [],
+        public ?string $currency = null,
     ) {
     }
 
@@ -28,6 +29,7 @@ final readonly class InvoiceData
     public function toArray(): array
     {
         return array_filter([
+            'currency' => $this->currency,
             'client_id' => $this->clientId,
             'number' => $this->number,
             'issued_at' => $this->issuedAt,

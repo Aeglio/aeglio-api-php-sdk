@@ -26,6 +26,7 @@ final readonly class UpdateProjectData
         public int|null|Optional $budgetThreshold = new Optional(),
         public bool|null|Optional $budgetThresholdNotify = new Optional(),
         public array|null|Optional $data = new Optional(),
+        public string|Optional $currency = new Optional(),
     ) {
     }
 
@@ -37,6 +38,7 @@ final readonly class UpdateProjectData
         $payload = [];
 
         foreach ([
+            'currency' => $this->currency,
             'client_id' => $this->clientId,
             'name' => $this->name,
             'type' => $this->type,

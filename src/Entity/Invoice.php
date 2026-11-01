@@ -37,6 +37,7 @@ final readonly class Invoice
         public array $payments,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public ?string $currency = null,
     ) {
     }
 
@@ -46,6 +47,7 @@ final readonly class Invoice
     public static function fromArray(Aeglio $client, array $data): self
     {
         return new self(
+            currency: $data['currency'] ?? null,
             client: $client,
             id: (int) $data['id'],
             clientId: (int) $data['client_id'],

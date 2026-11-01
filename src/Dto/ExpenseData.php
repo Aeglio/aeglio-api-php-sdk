@@ -21,6 +21,7 @@ final readonly class ExpenseData
         public ?string $notes = null,
         public ?bool $billable = null,
         public string|\SplFileInfo|null $attachment = null,
+        public ?string $currency = null,
     ) {
     }
 
@@ -30,6 +31,7 @@ final readonly class ExpenseData
     public function toArray(): array
     {
         return array_filter([
+            'currency' => $this->currency,
             'number' => $this->number,
             'amount' => $this->amount,
             'issued_at' => $this->issuedAt,
