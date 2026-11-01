@@ -29,4 +29,14 @@ final class InvoiceRowDataTest extends TestCase
             'price' => 75.0,
         ], $dto->toArray());
     }
+    public function test_plural_snapshot_can_be_sent_and_explicitly_cleared(): void
+    {
+        $row = new InvoiceRowData(type: 'regular', quantity: 2, price: 10, unit: 'hour', unitPlural: 'hours');
+        self::assertSame('hours', $row->toArray()['unit_plural']);
+        $clear = new InvoiceRowData(type: 'regular', quantity: 2, price: 10, unitPlural: null);
+        self::assertArrayHasKey('unit_plural', $clear->toArray());
+        self::assertNull($clear->toArray()['unit_plural']);
+        self::assertArrayNotHasKey('unit', $clear->toArray());
+    }
+
 }

@@ -22,6 +22,8 @@ final readonly class InvoiceRow
         public float $total,
         public ?string $createdAt,
         public ?string $updatedAt,
+        public ?string $unitPlural,
+        public ?string $unit,
     ) {
     }
 
@@ -31,6 +33,8 @@ final readonly class InvoiceRow
     public static function fromArray(array $data): self
     {
         return new self(
+            unitPlural: $data['unit_plural'] ?? null,
+            unit: $data['unit'] ?? null,
             id: (int) $data['id'],
             type: (string) $data['type'],
             title: $data['title'] ?? null,

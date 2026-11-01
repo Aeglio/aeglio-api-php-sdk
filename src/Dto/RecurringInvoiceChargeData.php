@@ -17,6 +17,7 @@ final readonly class RecurringInvoiceChargeData
         public string|null|Optional $unit = new Optional(),
         public float|Optional $price = new Optional(),
         public int|null|Optional $taxRateId = new Optional(),
+        public string|null|Optional $unitPlural = new Optional(),
     ) {
     }
 
@@ -32,6 +33,7 @@ final readonly class RecurringInvoiceChargeData
             'unit' => $this->unit,
             'price' => $this->price,
             'tax_rate_id' => $this->taxRateId,
+            'unit_plural' => $this->unitPlural,
         ], static fn (mixed $value): bool => ! $value instanceof Optional);
     }
 }

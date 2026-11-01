@@ -373,3 +373,19 @@ Update DTOs distinguish omitted values (`Optional`) from explicit null. Expense 
 Task webhooks use the existing signed version-1 envelope, public record IDs, versions and changed field names. Subscribe to task, comment, checklist, attachment and milestone events as needed; fetch current authorized state after delivery. Recurring schedules and charges have no new webhook events in this release; generated invoices retain their invoice events.
 
 Task recurrence, templates, bulk operations, follow/reactions, user administration, time tracking and MCP implementation are intentionally outside this expansion.
+
+### Articles
+
+```php
+$articles = $aeglio->articles()->list(search: 'Labour', active: true);
+$article = $aeglio->articles()->create(new \Aeglio\Dto\ArticleData(
+    name: 'Labour', currency: 'EUR', unit: 'hour', unitPlural: 'hours', defaultSalesPrice: '25.1200',
+));
+$article = $aeglio->articles()->find($article->id);
+$article->update(new \Aeglio\Dto\UpdateArticleData(active: false)); // Deactivate; no delete endpoint.
+$article->update(new \Aeglio\Dto\UpdateArticleData(unitPlural: null)); // Explicitly clear the plural.
+```
+
+Article operations require `articles:read/create/update` respectively, plus the caller's catalogue role permissions. List filters include name/code search, active, sellable and purchasable; page size is 1–100. Prices are nullable four-decimal strings. Category references use the Expense Categories API ID; tax references use the Tax Rates API ID. Article IDs are public team-local IDs and must not be substituted into the legacy estimate-row `articleId` field, which still uses an internal reference. Invoice rows do not support article linking.
+
+Invoice/estimate/recurring-charge row DTOs and entities carry optional `unitPlural` snapshots alongside `unit`. Absolute quantity 1 uses the singular; other quantities use the plural when present. Blank plurals fall back to the singular. Existing rows and signed documents are not rewritten when catalogue labels change. Creating an Article is not idempotent; the SDK does not automatically retry ambiguous writes.

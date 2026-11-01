@@ -13,6 +13,7 @@ use Aeglio\Resource\Invoices;
 use Aeglio\Resource\Projects;
 use Aeglio\Resource\Suppliers;
 use Aeglio\Resource\TaxRates;
+use Aeglio\Resource\Articles;
 
 final class Aeglio
 {
@@ -76,6 +77,11 @@ final class Aeglio
     public function projects(): Projects
     {
         return new Projects($this, $this->httpClient);
+    }
+
+    public function articles(): Articles
+    {
+        return new Articles($this, $this->httpClient);
     }
 
     public function taxRates(): TaxRates
