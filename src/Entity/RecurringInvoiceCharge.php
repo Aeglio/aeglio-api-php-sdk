@@ -22,6 +22,7 @@ final readonly class RecurringInvoiceCharge
         public ?int $consumedInvoiceId,
         public ?string $consumedAt,
         public ?string $cancelledAt,
+        public ?string $unitPlural,
     ) {
     }
 
@@ -29,6 +30,7 @@ final readonly class RecurringInvoiceCharge
     public static function fromArray(array $data): self
     {
         return new self(
+            unitPlural: $data['unit_plural'] ?? null,
             id: (string) ($data['id'] ?? ''),
             scheduleId: (int) ($data['schedule_id'] ?? 0),
             title: (string) ($data['title'] ?? ''),

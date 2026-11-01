@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Aeglio\Dto;
 
+use Aeglio\Support\Optional;
+
 final readonly class InvoiceRowData
 {
     /**
@@ -17,6 +19,8 @@ final readonly class InvoiceRowData
         public ?string $title = null,
         public ?string $description = null,
         public ?int $taxRateId = null,
+        public string|null|Optional $unitPlural = new Optional(),
+        public string|null|Optional $unit = new Optional(),
     ) {
     }
 
@@ -33,6 +37,8 @@ final readonly class InvoiceRowData
             'quantity' => $this->quantity,
             'price' => $this->price,
             'tax_rate_id' => $this->taxRateId,
-        ], static fn (mixed $value): bool => $value !== null);
+        ], static fn (mixed $value): bool => $value !== null) + array_filter([
+            'unit' => $this->unit, 'unit_plural' => $this->unitPlural,
+        ], static fn (mixed $value): bool => !$value instanceof Optional);
     }
 }

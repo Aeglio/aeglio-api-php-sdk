@@ -748,5 +748,25 @@
     "method": "POST",
     "path": "webhooks/{webhook}/rotate-secret",
     "sdk": "Webhooks.rotateSecret"
+  },
+  {
+    "method": "GET",
+    "path": "articles",
+    "sdk": "Articles.list"
+  },
+  {
+    "method": "POST",
+    "path": "articles",
+    "sdk": "Articles.create"
+  },
+  {
+    "method": "GET",
+    "path": "articles/{article}",
+    "sdk": "Articles.find"
+  },
+  {
+    "method": "PATCH",
+    "path": "articles/{article}",
+    "sdk": "Articles.update"
   }
 ]

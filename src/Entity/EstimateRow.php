@@ -15,6 +15,7 @@ final readonly class EstimateRow
         public float $price,
         public ?int $taxRateId,
         public int $position,
+        public ?string $unitPlural,
     ) {
     }
 
@@ -22,6 +23,7 @@ final readonly class EstimateRow
     public static function fromArray(array $data): self
     {
         return new self(
+            unitPlural: $data['unit_plural'] ?? null,
             id: (int) ($data['id'] ?? 0),
             title: (string) ($data['title'] ?? ''),
             description: isset($data['description']) ? (string) $data['description'] : null,
