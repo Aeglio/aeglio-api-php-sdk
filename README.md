@@ -327,6 +327,19 @@ $mine = $api->tasks()->list(filter: new TaskFilter(assigneeId: $personUuid));
 
 Use `setLabels`, `setParent`, `order`, `addDependency`/`removeDependency` and `addRelation`/`removeRelation` for task relationships. `archive(..., archived: false)` restores a task. Set `statusId` to a status from `statuses()` to complete/reopen; handle any domain completion warnings before resubmitting acknowledgements. Task comments, activity, children, checklist groups/items and attachments have paginated reads and explicit mutation methods. `uploadAttachment()` sends a file; `downloadAttachment()` returns bytes. `deleteAttachment()` returns false while storage cleanup is pending. Checklist conversion and relative ordering preserve domain version checks.
 
+Task HTML supports basic formatting, headings, quotes, code blocks and tables (up to 100 rows and 20 columns). Preserve table structure and normalized left/center/right cell alignment when round-tripping. Preserve normalized `data-language` metadata on code blocks when round-tripping HTML; generated syntax-color spans are browser-only. Markdown conversion is UI-only; SDK callers submit HTML using the existing format fields.
+
+HTML task descriptions and comment bodies may contain inline image references (`data-task-image="ATTACHMENT_UUID"`). Preserve them when round-tripping content for the same task. Removing the last saved reference physically deletes the file; comment history does not retain it. Preview URLs in HTML require an authorized browser session. SDK clients use `downloadAttachment()` with the task ID and attachment UUID to retrieve bytes. Other-task references, external image URLs, data URLs and SVG are not supported. Create the task before attaching images. Existing DTO string fields and entity types are unchanged.
+
+```php
+$task = $api->tasks()->find($taskId);
+$api->tasks()->update($taskId, new UpdateTaskData(
+    version: $task->version,
+    description: $task->description, // Preserve image references already in this HTML.
+    descriptionFormat: $task->descriptionFormat,
+));
+```
+
 `milestones()` supports create/update, linked tasks/progress, and `transition()` to active, achieved or cancelled. There is no milestone delete operation.
 
 ## Commercial workflows

@@ -14,6 +14,15 @@ use PHPUnit\Framework\TestCase;
 
 final class WorkflowPayloadTest extends TestCase
 {
+    public function test_task_image_html_survives_entity_and_update_payload_round_trip(): void
+    {
+        $html = '<h2>Screenshot</h2><blockquote>Review</blockquote><pre><code data-language="javascript">example()</code></pre><table><thead><tr><th align="left">Name</th></tr></thead><tbody><tr><td>Example</td></tr></tbody></table><img data-task-image="550e8400-e29b-41d4-a716-446655440000" src="/task-images/550e8400-e29b-41d4-a716-446655440000">';
+        $task = \Aeglio\Entity\Task::fromArray(['id' => 1, 'version' => 2, 'description' => $html, 'description_format' => 'html']);
+        $payload = new \Aeglio\Dto\UpdateTaskData(version: $task->version, description: $task->description, descriptionFormat: $task->descriptionFormat);
+        self::assertSame($html, $payload->toArray()['description']);
+        self::assertSame('html', $payload->toArray()['description_format']);
+    }
+
     public function test_estimate_rows_are_serialized_and_omitted_client_can_be_resolved_from_deal(): void
     {
         $data = new EstimateData(title: 'Work', number: 'EST-1', issuedAt: '2027-01-01', validUntil: '2027-02-01',
