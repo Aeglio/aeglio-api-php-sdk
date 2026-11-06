@@ -402,3 +402,31 @@ $article->update(new \Aeglio\Dto\UpdateArticleData(unitPlural: null)); // Explic
 Article operations require `articles:read/create/update` respectively, plus the caller's catalogue role permissions. List filters include name/code search, active, sellable and purchasable; page size is 1–100. Prices are nullable four-decimal strings. Category references use the Expense Categories API ID; tax references use the Tax Rates API ID. Article IDs are public team-local IDs and must not be substituted into the legacy estimate-row `articleId` field, which still uses an internal reference. Invoice rows do not support article linking.
 
 Invoice/estimate/recurring-charge row DTOs and entities carry optional `unitPlural` snapshots alongside `unit`. Absolute quantity 1 uses the singular; other quantities use the plural when present. Blank plurals fall back to the singular. Existing rows and signed documents are not rewritten when catalogue labels change. Creating an Article is not idempotent; the SDK does not automatically retry ambiguous writes.
+
+### Time entries and timers
+
+The time API requires `time:read` / `time:write` and acts only on your own entries.
+Use `time()->projects()`, `categories($projectId)` and `tasks($projectId)` to find
+eligible public IDs. Entries have UUID IDs; task and category IDs are distinct.
+
+```php
+$state = $api->time()->current();
+$started = $api->time()->start(new \Aeglio\Dto\StartTimerData(
+    operationId: $operationId, // Generate once; preserve on retry.
+    issuedAt: $issuedAt,
+    expiresAt: $expiresAt, // At most one day after issue time.
+    revision: $state->revision,
+    projectId: 12,
+    categoryId: 3,
+    description: 'Review export changes',
+));
+```
+
+Use `stop($entryId, StopTimerData)` or explicit
+`switchTimer($entryId, SwitchTimerData)` with the latest entry version and timer
+revision. `create(TimeEntryData)` logs a date and duration in whole minutes;
+`list()`, `find()`, `update()` and `delete()` manage own entries. Date/duration
+entries begin at midnight in the account timezone. Billed records are protected.
+Replaying an unexpired operation returns its recorded result; never create a
+new operation ID to retry an uncertain write. Read current state to reconcile
+an expired operation. A normal start conflicts if a timer is already running.
