@@ -44,6 +44,11 @@ final class Aeglio
         );
     }
 
+    public function time(): \Aeglio\Resource\Time
+    {
+        return new \Aeglio\Resource\Time($this, $this->httpClient);
+    }
+
     public function clients(): Clients
     {
         return new Clients($this, $this->httpClient);

@@ -768,5 +768,65 @@
     "method": "PATCH",
     "path": "articles/{article}",
     "sdk": "Articles.update"
+  },
+  {
+    "method": "GET",
+    "path": "time-entries",
+    "sdk": "Time.list"
+  },
+  {
+    "method": "GET",
+    "path": "time-entries/{entry}",
+    "sdk": "Time.find"
+  },
+  {
+    "method": "POST",
+    "path": "time-entries",
+    "sdk": "Time.create"
+  },
+  {
+    "method": "PATCH",
+    "path": "time-entries/{entry}",
+    "sdk": "Time.update"
+  },
+  {
+    "method": "DELETE",
+    "path": "time-entries/{entry}",
+    "sdk": "Time.delete"
+  },
+  {
+    "method": "GET",
+    "path": "timer",
+    "sdk": "Time.current"
+  },
+  {
+    "method": "POST",
+    "path": "timer/start",
+    "sdk": "Time.start"
+  },
+  {
+    "method": "POST",
+    "path": "timer/{entry}/stop",
+    "sdk": "Time.stop"
+  },
+  {
+    "method": "POST",
+    "path": "timer/{entry}/switch",
+    "sdk": "Time.switchTimer"
+  },
+  {
+    "method": "GET",
+    "path": "time-projects",
+    "sdk": "Time.projects"
+  },
+  {
+    "method": "GET",
+    "path": "time-projects/{project}/categories",
+    "sdk": "Time.categories"
+  },
+  {
+    "method": "GET",
+    "path": "time-projects/{project}/tasks",
+    "sdk": "Time.tasks"
   }
 ]
